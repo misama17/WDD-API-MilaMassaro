@@ -33,3 +33,10 @@ Wat ga ik morgen doen?
 Voortgangsgesprek.
 
 _Ik had mijn check-out met Rafi. Toen ik mijn concept vertelde kwam hij met suggesties dat ik zou kunnen doen of web API'S die ik eventueel zou kunnen gebruiken. Hij stelde bijvoorbeeld view transitions API voor, zodat ik de overgang van het trekken van de kaart naar het openen van de kaart een beetje mooi/"whimsical" kan doen_
+
+
+### VOORTGANGSGESPREK 1
+
+
+
+
