@@ -37,6 +37,18 @@ _Ik had mijn check-out met Rafi. Toen ik mijn concept vertelde kwam hij met sugg
 
 ### VOORTGANGSGESPREK 1
 
+- Web Speech API
+- Clippy (Web AI)
+  
+- Tarot card API (telt niet als API, foto's gebruiken vna github halen)
+- Tarot API
+- Customizable select (css)
+- Web animations API
+- evt. View transition API
+
+
+
+
 
 
 
