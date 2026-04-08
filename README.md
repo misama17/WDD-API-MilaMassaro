@@ -47,8 +47,36 @@ _Ik had mijn check-out met Rafi. Toen ik mijn concept vertelde kwam hij met sugg
 - evt. View transition API
 
 
+## WEEK 2
+
+**woensdag 1 april**
+
+Wat heb ik vandaag gedaan?
+
+Geoefend (klassikaal) met Astro en API. Dit vond ik best lastig. Ik vond het wel goed te volgen en begreep wat er gedaan en gezegd werd, maar toen ik het zelf moest doen vond ik het toch heel lastig. Ik vond het vooral lastig om te weten wat ik waar moest neerzetten met die componenten en layouts.
+Ik heb images voor de tarot cards gedownload en alle 78 namen aangepast zodat hij matcht met de naam uit de API. Toen heb ik "image" toegevoegd aan die lijst uit API door ze op te roepen vanuit de map images. Nu moet ik nog zorgen dat het op mijn pagina te zien is.
+
+
+Hoeveel tijd heeft dit me gekost?
+
+6 uur.
+2,5 uur klassikale uitleg over Astro met demo.
+45 min image namen aanpassen.
+2 uur werken aan project.
 
 
 
+Wat heb ik geleerd?
+
+Van alles over Astro.
+
+
+
+Wat ga ik morgen doen?
+
+Hopelijk mijn afbeeldingen met mijn API combineren en zorgen dat ik deze op mijn pagina te zien krijg. 
+
+
+_Ik had mijn check-out met Nienke. Zij raadde mij deze site aan omdat hier ook een voorbeeld met kaarten is: https://css-tricks.com/abusing-customizable-selects/_
 
 
