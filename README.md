@@ -49,7 +49,7 @@ _Ik had mijn check-out met Rafi. Toen ik mijn concept vertelde kwam hij met sugg
 
 ## WEEK 2
 
-**woensdag 1 april**
+**woensdag 8 april**
 
 Wat heb ik vandaag gedaan?
 
@@ -80,3 +80,28 @@ Hopelijk mijn afbeeldingen met mijn API combineren en zorgen dat ik deze op mijn
 _Ik had mijn check-out met Nienke. Zij raadde mij deze site aan omdat hier ook een voorbeeld met kaarten is: https://css-tricks.com/abusing-customizable-selects/_
 
 
+**donerdag 9 april**
+
+Wat heb ik vandaag gedaan?
+
+Ik heb mijn images gekoppeld aan mijn API op een nettere en kortere manier. Ik heb ze voor nu op de index even als overzicht staan in een grid.
+Ik heb gewerkt met een drag and drop API. Dit is werkend voor 1 dropzone, maar wil nu kijken met meer dropzones. dus dat moet ik nog aanpassen.
+Ik heb met javascript een spread gemaakt van 78 kaarten die onderin het scherm te zien zijn.
+
+
+Hoeveel tijd heeft dit me gekost?
+
+6 uur.
+1 uur workshop local storage.
+4 uur zelf werken.
+
+
+Wat heb ik geleerd?
+
+drag and drop API
+Meer over Astro en hoe dat werkt. Vind dat nog best lastig.
+
+
+
+Wat ga ik morgen doen?
+Voortgangsgesprekken.
