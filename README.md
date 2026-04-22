@@ -117,7 +117,7 @@ Voor mijn tweede web API wil ik web animations API gebruiken. Hier ga ik me volg
 
 **woensdag 15 april**
 
-Vandaag was ik bij Smashing Conference.
+_Vandaag was ik bij Smashing Conference._
 
 
 **donderdag 16 april**
