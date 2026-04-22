@@ -1,0 +1,22 @@
+---
+const { image, nameShort } = Astro.props;
+---
+
+<section>
+    <img src={image} alt={nameShort}>
+    <p>{nameShort}</p>
+</section>
+
+<style>
+    section {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+
+        & img {
+            width: 15em;
+            border-radius: .5em;
+            border: 1em solid white;
+        }
+    }
+</style>

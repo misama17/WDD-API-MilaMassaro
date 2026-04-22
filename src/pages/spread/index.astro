@@ -1,0 +1,227 @@
+---
+// import MainLayout from "../layouts/MainLayout.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import TarotCards from "../../components/TarotCards.astro";
+
+const { title } = Astro.props;
+const { image, nameShort } = Astro.props;
+
+const resMeanings = await fetch('https://tarotapi.dev/api/v1/cards')
+const tarotMeanings = await resMeanings.json()
+---
+
+<html>
+
+	<!-- <MainLayout title="Tarot reading">
+		<a href="/spread">Show spread animations</a>
+
+		<section>
+			{tarotMeanings.cards.map( card => {
+				return (
+					<TarotCards image={`/assets/images/${card.name_short}.jpeg`} nameShort={card.name_short}/>
+				)
+			})}
+		</section>
+	</MainLayout> -->
+
+	<head>
+		<title>{ title }</title>
+	</head>
+	<body>
+
+	<main class="main-container">
+
+		<h1>
+			Drag and drop the cards to the dropzones
+		</h1>
+		
+		<section class="spread-dropzones">
+			<div class="dropzone"></div>
+			<p>past</p>
+			<div class="dropzone"></div>
+			<p>present</p>
+			<div class="dropzone"></div>
+			<p>future</p>
+		</section>
+		
+
+		<div class="spread-container"></div>
+
+		<!-- <div class="tarotcard">
+			<div class="tarotcard-inner">
+				<div class="tarotcard-front">
+					<img src={image} alt={nameShort} />
+				</div>
+
+				<div class="tarotcard-back">
+					<p>backkk</p>
+				</div>
+			</div>
+		</div> -->
+
+		<style>
+			body {
+				margin: 0;
+				background-color: #200a24;
+
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			main {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				gap: 2rem;
+
+				margin-top: 8em;
+
+				& h1 {
+					color: white;
+				}
+			}
+
+			.spread-container {
+				position: fixed;
+				bottom: 0;
+				margin-top: auto;
+				width: 100%;
+			}
+
+			.spread-dropzones {
+				display: grid;
+				grid-template-areas: 
+				"zone1 	zone2 	zone3"
+				"p1		p2		p3";
+				justify-items: center;
+				gap: 1em;
+
+				& .dropzone {
+					width: 12em;
+					height: 18em;
+					border: 1px solid white;
+					border-radius: 1em;
+					color: white;
+
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					&:nth-of-type(1) {
+						grid-area: zone1;
+					}
+
+					&:nth-of-type(2) {
+						grid-area: zone2;
+					}
+
+					&:nth-of-type(3) {
+						grid-area: zone3;
+					}
+				}
+
+				& p {
+					margin-top: 0;
+					color: white;
+
+					:nth-of-type(1) {
+						grid-area: p1;
+					}
+
+					:nth-of-type(2) {
+						grid-area: p2;
+					}
+
+					:nth-of-type(3) {
+						grid-area: p3;
+					}
+				}
+			}
+
+		</style>
+
+		<style is:global>
+			.card-inspread {
+				position: absolute;
+				width: 10em;
+				height: 15em;
+				background-color: #4E2C5D;
+				border: 1px solid #200a24;
+				border-radius: 1em;
+				bottom: 0;
+				transition: transform 0.3s;
+			}
+
+			.card-inspread:hover {
+				transform:
+					translateY(-40px);
+			}
+		</style>
+
+		<script>
+			// @ts-nocheck
+			const spreadContainer = document.querySelector('.spread-container');
+			const containerWidth = spreadContainer.clientWidth;
+			const totalCards = 78;
+
+			const dropzones = document.querySelectorAll(".dropzone");
+
+			let draggedCard = null;
+
+			// https://codepen.io/misama17/pen/bNwYmbB?editors=0010
+			for (let i = 0; i < totalCards; i++) {
+				const card = document.createElement('div');
+				card.classList.add('card-inspread');
+
+				card.draggable = true;
+
+				card.addEventListener('dragstart', (ev) => {
+					draggedCard = ev.target;
+				});
+
+				const percentageLeft = (i / (totalCards - 1)) * 100;
+				card.style.left = `${percentageLeft}%`;
+
+				spreadContainer.appendChild(card);
+			}
+
+			// https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+			dropzones.forEach((dropzone) => {
+				dropzone.addEventListener("dragover", (ev) => {
+					ev.preventDefault();
+				})
+
+				dropzone.addEventListener("drop", (ev) => {
+				ev.preventDefault();
+				
+				// ChatGpt: ik wil dat er maar 1 item in de dropzone mag komen.
+				if (dropzone.children.length > 0) {
+					return;
+				}
+
+
+				if (!draggedCard) return;
+
+				draggedCard.style.position = "relative";
+				draggedCard.style.left = "0";
+				draggedCard.style.top = "0";
+				draggedCard.style.bottom = "auto";
+
+				dropzone.style.border = "1px solid deeppink";
+
+				dropzone.appendChild(draggedCard);
+
+				draggedCard = null;
+				
+			});
+			})
+		</script>
+
+
+	</main>
+
+	</body>
+</html>

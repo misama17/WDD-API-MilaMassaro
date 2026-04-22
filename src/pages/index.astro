@@ -1,0 +1,30 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import TarotCards from "../components/TarotCards.astro";
+
+const resMeanings = await fetch('https://tarotapi.dev/api/v1/cards')
+const tarotMeanings = await resMeanings.json()
+---
+
+
+<MainLayout title="Tarot reading">
+	<a href="/spread">Show spread animations</a>
+
+	<section>
+		{tarotMeanings.cards.map( card => {
+			return (
+				<TarotCards image={`/assets/images/${card.name_short}.jpeg`} nameShort={card.name_short}/>
+			)
+		})}
+	</section>
+</MainLayout>
+
+<style>
+    section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+		justify-content: center;
+		align-items: center;
+        gap: 2em;
+    }
+</style>
