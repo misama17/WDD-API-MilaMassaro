@@ -49,7 +49,6 @@ _Ik had mijn check-out met Rafi. Toen ik mijn concept vertelde kwam hij met sugg
 
 ## WEEK 2
 
-**woensdag 1 april**
 **woensdag 8 april**
 
 Wat heb ik vandaag gedaan?
@@ -106,3 +105,83 @@ Meer over Astro en hoe dat werkt. Vind dat nog best lastig.
 
 Wat ga ik morgen doen?
 Voortgangsgesprekken.
+
+
+### VOORTGANGSGESPREK 2
+
+Tijdens het voortgangsgesprek heb ik mijn proces tot nu toe laten zien. De drag and drop web API werkte en ik heb het werkend gemaakt voor 3 dropzones (op donderdagavond). In het gesprek heb ik aangegeven dat ik niet zo goed weet hoe ik mijn images met de juiste tarot card moet koppelen aan de gemaakte kaarten met javascript, maar Jad kan me hierbij helpen.
+Voor mijn tweede web API wil ik web animations API gebruiken. Hier ga ik me volgende week op focussen.
+
+
+## WEEK 3
+
+**woensdag 15 april**
+
+_Vandaag was ik bij Smashing Conference._
+
+
+**donderdag 16 april**
+
+Wat heb ik vandaag gedaan?
+
+Ik heb gewerkt met web animations API. Ik heb nu de functies geschreven dat mijn kaarten smooth animeren als erop geklikt wordt. 
+Ik heb geprobeerd om de drag and drop API beter werkend te maken. Omdat mijn kaarten een voor- en achterkant hebben zie ik die als ik de achterkant drag met deze API. Het lukte me niet om dit smoother en mooier te maken.
+Ik heb thuis verder gekeken naar oplossingen voor dit probleem. Toen kwam ik erachter dat ik met pointer events API hetzelfde kan doen als met de drag and drop API, maar dan veel smoother. Dus ik heb een nieuwe versie hiervan gemaakt met deze web API. Ik heb het magnetic gemaakt en dat hij snapt. Voor nu heb ik gebruik gemaakt van 3 kaarten en 3 dropzones. Volgende week moet ik de spread toevoegen en de rotatie functie en er 1 geheel van maken.
+
+
+Hoeveel tijd heeft dit me gekost?
+
+5,5 uur.
+30 min onderzoek naar web animations API.
+1,5 uur web animations API eigen project.
+1 uur drag and drop smoother maken.
+2,5 uur pointer events API.
+
+
+
+Wat heb ik geleerd?
+
+Dat drag and drop API niet de beste optie is voor mijn concept. Dat Pointer events API een verbeterde versie van mousemove is en dat deze ook voor mijn concept ingezet kan worden.
+
+
+
+Wat ga ik morgen doen?
+
+The Web You Want.
+
+
+### VOORTGANGSGESPREK 3
+_Deze week waren er geen voortgangsgesprekken_
+
+
+## WEEK 4
+
+**woensdag 22 april**
+
+Wat heb ik vandaag gedaan?
+
+Ik moest al mijn experimenten en projecten samenvoegen en dit ging helaas echt totaal niet soepel. De pointer events werkten niet in combinatie met mijn spread code. Toen ik dit werkend had gekregen werkte het klikken weer niet met de rotate functie. Toen dit werkend was lukte het resetten naar de oude positie weer niet... Uiteindelijk heb ik gekozen dat als de kaart eenmaal in de dropzone ligt, dat hij dan locked is en niet meer verplaatst kan worden. Dit is wat betreft UX duidelijker denk ik en maakt het voor de code ook beter dat er minder snel bugs en errors zijn.
+Mijn project op GitHub gezet met Render erbij.
+
+
+Hoeveel tijd heeft dit me gekost?
+
+5,5 uur.
+1 uur project op GitHub.
+2,5 uur alles combineren wat ik tot nu toe heb.
+30 min readme bijwerken.
+30 min mijn werk op visual studio code zetten (had alles op codepen).
+
+
+
+Wat heb ik geleerd?
+
+Dat dingen combineren in javascript best wel ingewikkeld kan zijn....
+
+
+
+Wat ga ik morgen doen?
+
+De content API op de kaarten zetten.
+Kijken hoe ik het het beste op kan delen met componenten in Astro.
+Nog een detail pagina waar de description bij elke kaart komt. 
