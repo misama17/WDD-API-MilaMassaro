@@ -150,6 +150,10 @@ Wat ga ik morgen doen?
 The Web You Want.
 
 
+### VOORTGANGSGESPREK 3
+_Deze week waren er geen voortgangsgesprekken_
+
+
 ## WEEK 4
 
 **woensdag 22 april**
