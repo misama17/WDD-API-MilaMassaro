@@ -185,3 +185,31 @@ Wat ga ik morgen doen?
 De content API op de kaarten zetten.
 Kijken hoe ik het het beste op kan delen met componenten in Astro.
 Nog een detail pagina waar de description bij elke kaart komt. 
+
+
+
+**donderdag 23 april**
+
+Wat heb ik vandaag gedaan?
+
+Vandaag kon ik me heel slecht concentreren. Ik was ook de hele week ziekig, wat niet echt hielp... Ik heb wel de content API op de kaarten gezet. Ik ben aan de slag gegaan met mijn homescherm, waar ik een soort altaar van wil maken. De overzichtspagina heb ik iets verder uitgewerkt.
+
+
+Hoeveel tijd heeft dit me gekost?
+
+3 uur.
+1 uur content API koppelen aan de div kaarten in spread.
+1 uur navigatie maken met kaarten.
+1 uur code opruimen.
+
+
+
+Wat heb ik geleerd?
+
+Dat je met <script define:vars={{tarotMeanings}}> de tarot meanings in dit geval als variabelen krijgt en deze kan gebruiken in je javascript.
+
+
+
+Wat ga ik morgen doen?
+
+Voortgangsgesprekken.
