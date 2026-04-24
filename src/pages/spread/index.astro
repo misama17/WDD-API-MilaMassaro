@@ -11,56 +11,44 @@ const tarotMeanings = await resMeanings.json()
 ---
 
 <html>
-
-	<!-- <MainLayout title="Tarot reading">
-		<a href="/spread">Show spread animations</a>
-
-		<section>
-			{tarotMeanings.cards.map( card => {
-				return (
-					<TarotCards image={`/assets/images/${card.name_short}.jpeg`} nameShort={card.name_short}/>
-				)
-			})}
-		</section>
-	</MainLayout> -->
-
 	<head>
 		<title>{ title }</title>
 	</head>
 	<body>
 
-	<main class="main-container">
+	<main>
+		<MainLayout title="Ask the cards">
 
-		<h1>
-			Drag and drop the cards to the dropzones
-		</h1>
+			<section class="main-container">
+
+				<h1>
+					Drag and drop the cards to the dropzones
+				</h1>
+				
+				<div class="dropzone-container">
+					<div class="dropzone">past</div>
+					<div class="dropzone">present</div>
+					<div class="dropzone">future</div>
+				</div>
+
+				<div class="cards-container"></div>
+
+			</section>
+
+		</MainLayout>
 		
-		<div class="dropzone-container">
-			<div class="dropzone">past</div>
-			<div class="dropzone">present</div>
-			<div class="dropzone">future</div>
-		</div>
-
-		<div class="cards-container"></div>
-
 		<style>
-			:root {
-				--color-bg: #4E2C5D;
-				--color-border: #3b2146;
-				--color-text-one: #fff;
-				--color-hotzone: hotpink;
-			}
-
 			body {
 				margin: 0;
-				height: 100vh;
+				height: 100svh;
+				overflow-x: hidden;
+			}
+
+			.main-container {
 				display: flex;
 				flex-direction: column;
-				justify-content: space-between;
 				align-items: center;
-
-				background-color: var(--color-bg);
-				color: var(--color-text-one);
+				height: 100svh;
 			}
 
 			.dropzone-container {
@@ -70,8 +58,8 @@ const tarotMeanings = await resMeanings.json()
 			}
 
 			.dropzone {
-				width: 10em;
-				height: 15em;
+				width: 12em;
+				height: 21em;
 				border: 2px solid var(--color-border);
 				border-radius: 10px;
 				display: flex;
@@ -82,12 +70,12 @@ const tarotMeanings = await resMeanings.json()
 			}
 
 			.dropzone.hot {
-				border-color: hotpink;
+				border-color: var(--color-hotzone);
 				transform: scale(1.1);
 			}
 
 			.dropzone.full {
-				border-color: white;
+				border-color: var(--color-full);
 			}
 
 			.cards-container {
@@ -97,12 +85,14 @@ const tarotMeanings = await resMeanings.json()
 				position: absolute;
 				bottom: 5em;
 				width: 100%;
+				left: 0;
+				right: 0;
 			}
 
 			.tarot-deck {
 				position: relative;
 				width: 100vw;
-				height: 15em;
+				height: 21em;
 
 				display: flex;
 				justify-content: center;
@@ -118,8 +108,8 @@ const tarotMeanings = await resMeanings.json()
 
 		<style is:global>
 			.card {
-				width: 10em;
-				height: 15em;
+				width: 12em;
+				height: 21em;
 				border-radius: 10px;
 				position: relative;
 				transition: transform 0.2s ease;
@@ -144,13 +134,17 @@ const tarotMeanings = await resMeanings.json()
 				position: absolute;
 				top: 0;
 				left: 0;
-				width: 10em;
-				height: 15em;
+				width: 12em;
+				height: 21em;
 				perspective: 20em;
 				cursor: pointer;
 				
 				touch-action: none; 
 				user-select: none;
+
+				box-shadow: 
+					0 2px 6px rgba(0,0,0,0.1),
+					0 10px 20px rgba(0,0,0,0.1);
 			}
 
 			.tarotcard-inner {
@@ -164,17 +158,18 @@ const tarotMeanings = await resMeanings.json()
 			.tarotcard-front,
 			.tarotcard-back {
 				position: absolute;
+				inset: 0;
 				height: 100%;
 				width: 100%;
 				background: var(--color-bg);
-				border: 2px solid var(--color-hotzone);
+				border: .35em solid white;
+				border-radius: .25em;
 				color: var(--color-text-one);
 				text-align: center;
 				font-size: 30px;
 				
-				border-radius: 7px;
-				
-				backface-visibility: hidden;
+				overflow: clip;
+				box-sizing: border-box;
 			}
 
 			.tarotcard-outer:not(.locked) .tarotcard-inner:hover {
@@ -183,39 +178,64 @@ const tarotMeanings = await resMeanings.json()
 
 			.tarotcard-front {
 				/*  Zo weet je zeker dat hij ervoor komt, altijd goed om te doen.  */
-				transform: translateZ(1px)
+				transform: translateZ(1px);
+
+				& img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					box-sizing: border-box;
+				}
 			}
 
 			.tarotcard-back {
 				background: var(--color-border);
 				color: var(--color-text-one);
 				transform: rotateY( 180deg );
+
+				& img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					box-sizing: border-box;
+					transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+					&:hover {
+						transform: scale(1.05);
+					}
+				}
 			}
 
 			.tarotcard-outer:not(.locked) .tarotcard-inner:hover {
-				transform: translateY(-40px);
+				transform: 
+					translateY(-40px);
+
 			}
 		</style>
 
-		<script>
+		<script define:vars={{tarotMeanings}}>
 			// @ts-nocheck
 			// https://codepen.io/tkdev-hub/pen/RNGBZMo
 			// https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
-
-			// const cards = document.querySelectorAll(".card");
-
-
+			
+			// ----------------------------------
+			// -------- MARK: CONSTANTEN --------
+			// ----------------------------------
 			const dropzones = document.querySelectorAll(".dropzone");
 			const deck = document.querySelector(".cards-container")
 
-			const cards = Array.from({ length: 78 }, (_, i) => ({
-			front: `Front ${i + 1}`,
-			back: `Back ${i + 1}`
+			const cards = tarotMeanings.cards.map (card => ({
+				front: card.name,
+				back: `/assets/images/${card.name_short}.jpeg`
 			}));
 
-
+		
+			// ----------------------------------
+			// -------- MARK: VARIABELEN --------
+			// ----------------------------------
 			let dragged = null;
 			let moved = false;
+			// !! ChatGPT: hoe houd ik de kaarten locked als ze eenmaal in de dropzone zijn?
 			let lockedCards = new Set();
 			let offsetX = 0;
 			let offsetY = 0;
@@ -227,14 +247,13 @@ const tarotMeanings = await resMeanings.json()
 			// ----------------------------------------
 			cards.forEach((card, i) => {
 			const button = document.createElement("button");
+			const percentageLeft = (i / (cards.length - 1)) * 100;
 			
 			button.dataset.index = i; 
 			
-			
 			button.className = "tarotcard-outer";
 			button.setAttribute("aria-expanded", "false");
-			
-			button.style.transform = `translateX(${i * 8}px)`;
+			button.style.left = `${percentageLeft}%`;
 			button.style.zIndex = i;
 
 			const inner = document.createElement("div");
@@ -242,12 +261,23 @@ const tarotMeanings = await resMeanings.json()
 
 			const front = document.createElement("div");
 			front.className = "tarotcard-front";
-			front.textContent = card.front;
 
+			const imgFront = document.createElement("img");
+			imgFront.src = "/assets/images/card-back.jpeg"; 
+			imgFront.alt = "Tarot card back design";
+			front.appendChild(imgFront);
+			
+			// Maak div voor de afbeelding/kaart
 			const back = document.createElement("div");
 			back.className = "tarotcard-back";
-			back.textContent = card.back;
-
+			
+			// Voeg kaart toe aan de div die hierboven is gemaakt.
+			const imgBack = document.createElement("img");
+			imgBack.src = card.back;
+			imgBack.alt = `Tarot card: ${card.name_short}`;
+			back.appendChild(imgBack);
+			
+			// ChatGPT: Stop de front en back in de inner (is een div hierboven aangemaakt)
 			inner.append(front, back);
 			button.append(inner);
 
@@ -344,51 +374,51 @@ const tarotMeanings = await resMeanings.json()
 			// -------- MARK: POINTER UP --------
 			// ----------------------------------
 			document.addEventListener("pointerup", () => {
-			if (!dragged) return;
+				if (!dragged) return;
 
-			const cardRect = dragged.getBoundingClientRect();
+				const cardRect = dragged.getBoundingClientRect();
 
-			let target = null;
+				let target = null;
 
-			dropzones.forEach((zone) => {
-				const zoneRect = zone.getBoundingClientRect();
-				const isEmpty = zone.children.length === 0;
-			
-				// !! ChatGPT: Hoe zorg ik ervoor dat de computer weet dat de card de dropzone overlapt?
-				// >> Dit kijkt of de randen van de kaart de randen van de zone overlappen
-				const isInside =
-				cardRect.left < zoneRect.right &&
-				cardRect.right > zoneRect.left &&
-				cardRect.top < zoneRect.bottom &&
-				cardRect.bottom > zoneRect.top;
+				dropzones.forEach((zone) => {
+					const zoneRect = zone.getBoundingClientRect();
+					const isEmpty = zone.children.length === 0;
 				
-				// Als er overlapping is EN de dropzone leeg is, dan wordt die dropzone de target
-				if (isInside && isEmpty) {
-				target = zone;
+					// !! ChatGPT: Hoe zorg ik ervoor dat de computer weet dat de card de dropzone overlapt?
+					// >> Dit kijkt of de randen van de kaart de randen van de zone overlappen
+					const isInside =
+					cardRect.left < zoneRect.right &&
+					cardRect.right > zoneRect.left &&
+					cardRect.top < zoneRect.bottom &&
+					cardRect.bottom > zoneRect.top;
+					
+					// Als er overlapping is EN de dropzone leeg is, dan wordt die dropzone de target
+					if (isInside && isEmpty) {
+					target = zone;
+					}
+				});
+				
+				// Als het een geldige target heeft gevonden wordt de functie placeInZone aangeroepen.
+				if (target) {
+					placeInZone(dragged, target);
+				} 
+				
+				
+				updateStates();
+
+				// Zorgen dat de dropzone waar de card in komt niet meer hot is als pointer up en target bereikt.
+				dropzones.forEach((dropzone) => {
+					dropzone.classList.remove("hot");
+				})
+				
+				if (!moved) {
+					rotateTarotcard({ currentTarget: dragged });
 				}
-			});
-			
-			// Als het een geldige target heeft gevonden wordt de functie placeInZone aangeroepen.
-			if (target) {
-				placeInZone(dragged, target);
-			} 
-			
-			
-			updateStates();
 
-			// Zorgen dat de dropzone waar de card in komt niet meer hot is als pointer up en target bereikt.
-			dropzones.forEach((dropzone) => {
-				dropzone.classList.remove("hot");
-			})
-			
-			if (!moved) {
-				rotateTarotcard({ currentTarget: dragged });
-			}
-
-			moved = false;   // reset
-			
-			// Zegt dat er geen card meer gedragged wordt.
-			dragged = null;
+				moved = false;
+				
+				// Zegt dat er geen card meer gedragged wordt.
+				dragged = null;
 			});
 
 
@@ -397,24 +427,25 @@ const tarotMeanings = await resMeanings.json()
 			// -------- MARK: PLACE IN ZONE --------
 			// -------------------------------------
 			function placeInZone(card, zone) {
-			// Card wordt "kind" van de zone
-			zone.appendChild(card);
+				// Card wordt "kind" van de zone
+				zone.appendChild(card);
 
-			const zoneRect = zone.getBoundingClientRect();
-			const cardRect = card.getBoundingClientRect();
-			
-			// !! ChatGPT: Overgebleven ruimte door 2 delen om card te centreren.
-			const left = (zoneRect.width - cardRect.width) / 2;
-			const top = (zoneRect.height - cardRect.height) / 2;
+				const zoneRect = zone.getBoundingClientRect();
+				const cardRect = card.getBoundingClientRect();
+				
+				// !! ChatGPT: Overgebleven ruimte door 2 delen om card te centreren.
+				const left = (zoneRect.width - cardRect.width) / 2;
+				const top = (zoneRect.height - cardRect.height) / 2;
 
-			card.style.position = "absolute";
-			card.style.left = left + "px";
-			card.style.top = top + "px";
+				card.style.position = "absolute";
+				card.style.left = left + "px";
+				card.style.top = top + "px";
 
-			card.style.transform = "scale(1.05)";
-			
-			lockedCards.add(card);
-			card.classList.add("locked");
+				card.style.transform = "scale(1.05)";
+				
+				// !!ChatGPT: hoe houd ik de kaarten locked als ze eenmaal in de dropzone zijn?
+				lockedCards.add(card);
+				card.classList.add("locked");
 			};
 
 
@@ -423,13 +454,13 @@ const tarotMeanings = await resMeanings.json()
 			// -----------------------------------------
 			function updateStates() {
 			
-			dropzones.forEach((dropzone) => {
-				if (dropzone.children.length === 0) {
-				dropzone.classList.remove("full");
-				} else {
-				dropzone.classList.add("full");
-				}
-			});
+				dropzones.forEach((dropzone) => {
+					if (dropzone.children.length === 0) {
+					dropzone.classList.remove("full");
+					} else {
+					dropzone.classList.add("full");
+					}
+				});
 			
 			};
 

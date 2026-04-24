@@ -3,7 +3,7 @@
 :root {
   --color-dark: #111;
   --color-light: #ececec;
-  --font-primary: 'Roboto', sans-serif;
+  --font-primary: serif;
 
   /* spacing */
   --padding-inline: clamp(1rem, 2.5vw, 2rem);
@@ -13,6 +13,13 @@
 
   --color-text: var(--color-dark);
   --color-background: var(--color-light);
+
+  --color-bg: #4E2C5D;
+  --color-border: #3b2146;
+  --color-text-one: #fff;
+  --color-hotzone: hotpink;
+  --color-full: #4E2C5D;
+  --color-object: #683b7c;
 }
 
 * {
@@ -22,6 +29,6 @@
 
 
 body {
-  color: var(--color-text);
-  background-color: var(--color-background);
+  color: var(--color-text-one);
+  background-color: var(--color-bg);
 }
