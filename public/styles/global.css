@@ -14,12 +14,14 @@
   --color-text: var(--color-dark);
   --color-background: var(--color-light);
 
-  --color-bg: #4E2C5D;
+  --color-bg: #1A111D;
   --color-border: #3b2146;
+  --color-border-card: #F6FAfC;
   --color-text-one: #fff;
   --color-hotzone: hotpink;
   --color-full: #4E2C5D;
-  --color-object: #683b7c;
+  --color-object: #241726;
+
 }
 
 * {
