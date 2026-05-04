@@ -1,22 +1,168 @@
 ---
 const { image, nameShort } = Astro.props;
+const { nameCard, type} = Astro.props;
+const { meaningUp, meaningRev } = Astro.props;
 ---
 
-<section>
+<!-- <section>
     <img src={image} alt={nameShort}>
     <p>{nameShort}</p>
+</section> -->
+
+<section>
+    <button class="overview-card-outer" aria-expanded="false">
+        <div class="overview-card-inner">
+            <div class="overview-card-front">
+                <img src={image} alt={nameShort}>
+            </div>
+            <div class="overview-card-back">
+                <h2>{nameCard}</h2>
+                <h3>{type}</h3>
+                <p><strong>Meaning up: </strong>{meaningUp}</p>
+                <p><strong>Meaning rev: </strong>{meaningRev}</p>
+            </div>
+        </div>
+    </button>
 </section>
 
 <style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
     section {
         display: grid;
         justify-content: center;
         align-items: center;
+        gap: 2em;
 
         & img {
-            width: 15em;
-            border-radius: .5em;
-            border: 1em solid white;
+            display: block;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        & .overview-card-outer {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            font: inherit;
+            color: inherit;
+            
+            width: 14em;
+            height: 23.5em;
+            perspective: 20em;
+            cursor: pointer;
+        }
+
+        & .overview-card-inner {
+            width: 100%;
+            height: 100%;
+
+            transition: transform 1s;
+            transform-style: preserve-3d;
+        }
+
+        & .overview-card-front,
+        .overview-card-back {
+            position: absolute;
+            inset: 0;
+            color: white;
+
+            border-radius: 7px;
+            
+            border-radius: 7px;
+            /* backface-visibility: hidden; */
+        }
+
+        & .overview-card-front {
+        /*  Zo weet je zeker dat hij ervoor komt, altijd goed om te doen.  */
+            transform: translateZ(1px);
+            border: .5em solid white;
+        }
+
+        & .overview-card-back {
+            background: #6A3F73;
+            width: 100%;
+            height: 100%;
+            color: white;
+            transform: rotateY( 180deg );
+            padding: 1em .5em;
+            border: .5em solid transparent;
+
+            display: grid;
+            grid-template-rows: 20% 10% 55% 15%;
+            align-items: end;
+            gap: .15em;
+
+            & h2 {
+                font-size: max(1.5rem, 2vw);
+                text-align: center;
+            }
+
+            & h3 {
+                font-size: max(1rem, 1vw);
+                text-align: center;
+                background-color: white;
+                color: #6A3F73;
+                width: max-content;
+                padding: 0 .5em;
+                justify-self: center;
+            }
+
+            & p {
+                font-size: max(.5rem, 1vw);
+                text-align: start;
+            }
         }
     }
+
+    
+
+    
+
+    
+    
+
+    
 </style>
+
+<script>
+    const overviewcardsOuter = document.querySelectorAll(".overview-card-outer");
+
+    overviewcardsOuter.forEach((overviewcardOuter) => {
+        overviewcardOuter.addEventListener("click", rotateOverviewcard);
+    })
+
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
+    function rotateOverviewcard(event) {
+        const overviewcardInner = event.currentTarget.querySelector(".overview-card-inner");
+        
+        // Zodat ik overviewcardOuter later kan gebruiken met aria-expanded attribute (toegankelijkheid).
+        const overviewcardOuter = event.currentTarget;
+        
+        const overviewcardFlipped = overviewcardInner.dataset.overviewcardFlipped === "true";
+        
+        overviewcardInner.animate(
+            [
+            { transform: overviewcardFlipped ? "rotateY(0deg)" : "rotateY(180deg)" }
+            ],  
+            {
+            fill: 'forwards',
+            duration: 1500,
+            easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+            }
+        );
+        
+        // tarotcardInner.dataset.tarotcardFlipped = !tarotcardFlipped;
+        const newOverviewcardState = !overviewcardFlipped;
+
+        overviewcardInner.dataset.overviewcardFlipped = newOverviewcardState;
+
+        overviewcardOuter.setAttribute("aria-expanded", newOverviewcardState);
+    }
+</script>

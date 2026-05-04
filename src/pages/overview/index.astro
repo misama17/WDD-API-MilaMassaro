@@ -11,11 +11,11 @@ const tarotMeanings = await resMeanings.json()
 	<a href="/spread">Show spread animations</a>
 
 	<section>
-		{tarotMeanings.cards.map( card => {
-			return (
-				<TarotCards image={`/assets/images/${card.name_short}.jpeg`} nameShort={card.name_short}/>
-			)
-		})}
+        {tarotMeanings.cards.map( card => {
+            return (
+                <TarotCards image={`/assets/images/${card.name_short}.jpeg`} nameShort={card.name_short} nameCard={card.name} type={card.type} meaningUp={card.meaning_up} meaningRev={card.meaning_rev}/>
+            )
+        })}
 	</section>
 </MainLayout>
 
