@@ -1,5 +1,6 @@
 ---
-// import MainLayout from "../layouts/MainLayout.astro";
+// @ts-nocheck
+// BRON: https://tarotapi.dev/api/v1/cards
 import MainLayout from "../../layouts/MainLayout.astro";
 import TarotCards from "../../components/TarotCards.astro";
 
@@ -26,19 +27,18 @@ const tarotMeanings = await resMeanings.json()
 				</h1>
 				
 				<div class="dropzone-container">
-					<div class="dropzone">past</div>
-					<div class="dropzone">present</div>
-					<div class="dropzone">future</div>
+					<div class="dropzone"></div>
+					<div class="dropzone"></div>
+					<div class="dropzone"></div>
 				</div>
 
 				<div class="cards-container"></div>
 
 			</section>
 
-			<a href="#">Get my interpretation</a>
-
 		</MainLayout>
 		
+
 		<style>
 			body {
 				margin: 0;
@@ -211,6 +211,14 @@ const tarotMeanings = await resMeanings.json()
 					translateY(-40px);
 			}
 
+			.description-link {
+				padding: 1em 2em;
+				margin-top: 10em;
+				text-decoration: none;
+				border-radius: 2em;
+				background-color: var(--color-hotzone);
+			}
+
 		</style>
 
 		<script define:vars={{tarotMeanings}}>
@@ -223,10 +231,10 @@ const tarotMeanings = await resMeanings.json()
 			// ----------------------------------
 			const dropzones = document.querySelectorAll(".dropzone");
 			const deck = document.querySelector(".cards-container")
-
 			const cards = tarotMeanings.cards.map (card => ({
 				front: "",
-				back: `/assets/images/${card.name_short}.jpeg`
+				back: `/assets/images/${card.name_short}.jpeg`,
+				name_short: card.name_short,
 			}));
 
 		
@@ -249,7 +257,10 @@ const tarotMeanings = await resMeanings.json()
 				const button = document.createElement("button");
 				const percentageLeft = (i / (cards.length - 1)) * 100;
 				
-				button.dataset.index = i; 
+
+				button.dataset.index = i;
+
+				button.dataset.name_short = card.name_short;
 				
 				button.className = "tarotcard-outer";
 				button.setAttribute("aria-expanded", "false");
@@ -457,6 +468,13 @@ const tarotMeanings = await resMeanings.json()
 			// -------- MARK: ZONE STATE UPDATE --------
 			// -----------------------------------------
 			function spreadIsFull() {
+				
+				// opslaan in localStorage
+				const idsToSave = [...lockedCards].map(card => {
+					return card.dataset.name_short;
+				});
+				console.log(idsToSave);
+				window.localStorage.setItem("chosen_cards", JSON.stringify(idsToSave));
 
 				deck.animate(
 					[
@@ -469,7 +487,13 @@ const tarotMeanings = await resMeanings.json()
 					easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
 					}
 				);
-			
+				
+				// !! ChatGPT: hoe kan ik mijn hele deck het best verwijderen (met display: none) >> kan ik er een timer opzetten?
+				setTimeout(() => {
+					deck.style.display = "none";
+				}, 1000);
+				
+				showDescription();
 			};
 
 			// -------------------------------------------
@@ -479,11 +503,26 @@ const tarotMeanings = await resMeanings.json()
 			
 				dropzones.forEach((dropzone) => {
 					if (dropzone.children.length === 0) {
-					dropzone.classList.remove("full");
+						dropzone.classList.remove("full");
 					} else {
-					dropzone.classList.add("full");
+						dropzone.classList.add("full");
 					}
 				});
+			
+			};
+
+			// -------------------------------------------
+			// ------- MARK: SHOW DESCRIPTION LINK -------
+			// -------------------------------------------
+			function showDescription() {
+
+				if (document.querySelector(".description-link")) return;
+			
+				const descriptionLink = document.createElement("a");
+				descriptionLink.className = "description-link";
+				descriptionLink.href = "/description/";
+				descriptionLink.textContent = "Interpret my cards";
+				deck.parentElement.appendChild(descriptionLink);
 			
 			};
 
@@ -496,35 +535,35 @@ const tarotMeanings = await resMeanings.json()
 			// https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
 
 			function rotateTarotcard(event) {
-			const tarotcardInner = event.currentTarget.querySelector(".tarotcard-inner");
-			
-			// Zodat ik tarotcardOuter later kan gebruiken met aria-expanded attribute (toegankelijkheid).
-			const tarotcardOuter = event.currentTarget;
-			
-			
-			if (!tarotcardOuter.parentElement.classList.contains("dropzone")) {
-				return;
-			}
-			
-			const tarotcardFlipped = tarotcardInner.dataset.tarotcardFlipped === "true";
-			
-			tarotcardInner.animate(
-				[
-				{ transform: tarotcardFlipped ? "rotateY(0deg)" : "rotateY(180deg)" }
-				],  
-				{
-				fill: 'forwards',
-				duration: 1500,
-				easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+				const tarotcardInner = event.currentTarget.querySelector(".tarotcard-inner");
+				
+				// Zodat ik tarotcardOuter later kan gebruiken met aria-expanded attribute (toegankelijkheid).
+				const tarotcardOuter = event.currentTarget;
+				
+				
+				if (!tarotcardOuter.parentElement.classList.contains("dropzone")) {
+					return;
 				}
-			);
-			
-			// tarotcardInner.dataset.tarotcardFlipped = !tarotcardFlipped;
-			const newTarotcardState = !tarotcardFlipped;
+				
+				const tarotcardFlipped = tarotcardInner.dataset.tarotcardFlipped === "true";
+				
+				tarotcardInner.animate(
+					[
+					{ transform: tarotcardFlipped ? "rotateY(0deg)" : "rotateY(180deg)" }
+					],  
+					{
+					fill: 'forwards',
+					duration: 1500,
+					easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+					}
+				);
+				
+				// tarotcardInner.dataset.tarotcardFlipped = !tarotcardFlipped;
+				const newTarotcardState = !tarotcardFlipped;
 
-			tarotcardInner.dataset.tarotcardFlipped = newTarotcardState;
+				tarotcardInner.dataset.tarotcardFlipped = newTarotcardState;
 
-			tarotcardOuter.setAttribute("aria-expanded", newTarotcardState);
+				tarotcardOuter.setAttribute("aria-expanded", newTarotcardState);
 			};
 		</script>
 
