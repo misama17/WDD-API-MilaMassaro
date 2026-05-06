@@ -3,28 +3,25 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import TarotCards from "../../components/TarotCards.astro";
 
-const resMeanings = await fetch('https://tarotapi.dev/api/v1/cards')
-const tarotMeanings = await resMeanings.json()
+const resMeanings = await fetch("https://tarotapi.dev/api/v1/cards");
+const tarotMeanings = await resMeanings.json();
 ---
 
-
 <MainLayout title="Ask the cards">
+    <section class="saved-cards">
 
-	<section class="saved-cards">
-        
     </section>
-	
 </MainLayout>
 
 <style>
     .saved-cards {
         display: grid;
-        grid-template-areas: 
-        "card1  text1"
-        "card2  text2"
-        "card3  text3";
+        grid-template-areas:
+            "card1  text1"
+            "text2  card2"
+            "card3  text3";
+        grid-template-columns: 1fr 1fr;
     }
-
 
 </style>
 
@@ -36,78 +33,61 @@ const tarotMeanings = await resMeanings.json()
         margin: 0;
         font: inherit;
         color: inherit;
-        
+
         width: 12em;
         height: 21em;
         perspective: 20em;
         cursor: pointer;
-        
-        touch-action: none; 
+
+        touch-action: none;
         user-select: none;
 
-        box-shadow: 
-            0 2px 6px rgba(0,0,0,0.1),
-            0 10px 20px rgba(0,0,0,0.1);
-    }
-
-    .tarotcard-inner {
-        width: 100%;
-        height: 100%;
-
-        transition: transform 1s;
-        transform-style: preserve-3d;
-    }
-
-    .tarotcard-front,
-    .tarotcard-back {
-        position: absolute;
-        inset: 0;
-        height: 100%;
-        width: 100%;
-        background: var(--color-bg);
-        border: .35em solid var(--color-border-card);
-        border-radius: .25em;
-        color: var(--color-text-one);
-        text-align: center;
-        font-size: 30px;
-        
-        overflow: clip;
-        box-sizing: border-box;
-    }
-
-    .tarotcard-front {
-        /*  Zo weet je zeker dat hij ervoor komt, altijd goed om te doen.  */
-        transform: translateZ(1px);
+        box-shadow:
+            0 2px 6px rgba(0, 0, 0, 0.1),
+            0 10px 20px rgba(0, 0, 0, 0.1);
+        border: 0.35em solid var(--color-border-card);
+        border-radius: 0.25em;
 
         & img {
+            object-fit: cover;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            box-sizing: border-box;
-            pointer-events: none;
         }
     }
 
-    .tarotcard-back {
-        background: var(--color-border);
-        color: var(--color-text-one);
-        transform: rotateY( 180deg );
+    .card-1, .card-2, .card-3,
+    .text-1, .text-2, .text-3 {
+        justify-self: center;
+    }
 
-        & img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            box-sizing: border-box;
-            transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-            pointer-events: none;
-        }
+    .card-1 {
+        grid-area: card1;
+    }
+
+    .card-2 {
+        grid-area: card2;
+    }
+
+    .card-3 {
+        grid-area: card3;
+    }
+
+    .text-1 {
+        grid-area: text1;
+    }
+
+    .text-2 {
+        grid-area: text2;
+        text-align: end;
+    }
+
+    .text-3 {
+        grid-area: text3;
     }
 </style>
 
-<script>
+<script define:vars={{ tarotMeanings }}>
     // @ts-nocheck
-    // om het weer te lezen
-	// JSON.parse(window.localStorage.getItem("chosen_cards"))
 
     const savedCards = JSON.parse(window.localStorage.getItem("chosen_cards"));
     const savedContainer = document.querySelector(".saved-cards");
@@ -115,50 +95,40 @@ const tarotMeanings = await resMeanings.json()
     savedCards.forEach((cardName, i) => {
         const div = document.createElement("div");
 
-        card.className = `tarotcard-outer card${i + 1}`;
-        text.className = `tarot-text text${i + 1}`;
+        div.dataset.index = i;
+        div.dataset.name_short = cardName;
 
-        div.className = "tarotcard-outer";
-        div.setAttribute("aria-expanded", "false");
+        div.className = `tarotcard-outer card-${i + 1}`;
 
-        const inner = document.createElement("div");
-        inner.className = "tarotcard-inner";
+        const img = document.createElement("img");
+        img.src = `/assets/images/${cardName}.jpeg`;
+        img.alt = `Tarot card: ${cardName}`;
 
-        const front = document.createElement("div");
-        front.className = "tarotcard-front";
-
-        const imgFront = document.createElement("img");
-        imgFront.src = "/assets/images/card-back.jpeg";
-        imgFront.alt = "Tarot card back design";
-        front.appendChild(imgFront);
-
-        const back = document.createElement("div");
-        back.className = "tarotcard-back";
-
-        const imgBack = document.createElement("img");
-        imgBack.src = `/assets/images/${cardName}.jpeg`;
-        imgBack.alt = `Tarot card: ${cardName}`;
-        back.appendChild(imgBack);
-
-        inner.append(front, back);
-        div.append(inner);
-
+        div.appendChild(img);
         savedContainer.appendChild(div);
-
-        rotateSavedCards(inner);
     });
 
-    function rotateSavedCards(cardInner) {
-        cardInner.animate(
-            [
-            { transform: "rotateY(0deg)" },
-            { transform: "rotateY(360deg)" }
-            ],
-            {
-            duration: 30000,
-            iterations: Infinity,
-            easing: "linear"
-            }
-        );
-    };
+    savedCards.forEach((shortName, i) => {
+        // filteren binnen in de hele tarot API naar de juiste kaarten. Als name_short in hele API overeenkomt met shortName uit savedCards dan returnt hij die.
+        const card = tarotMeanings.cards.filter(card => {
+            return card.name_short == shortName
+        })
+
+        // als er kaart is gevonden dan die tekst.
+        if (card) {
+            
+            const text = document.createElement("div");
+            text.className = `text-tarot text-${i + 1}`;
+            text.innerHTML = `
+                <h2>${card[0].name}</h2>
+                <p>${card[0].type}</p>
+                <p>${card[0].desc}</p>
+                <p><strong>Meaning up:</strong> ${card[0].meaning_up}</p>
+                <p><strong>Meaning reversed:</strong> ${card[0].meaning_rev}</p>
+            `;
+        
+            savedContainer.appendChild(text);
+        }
+    });
+
 </script>

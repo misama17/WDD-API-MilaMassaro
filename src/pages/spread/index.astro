@@ -473,7 +473,7 @@ const tarotMeanings = await resMeanings.json()
 				const idsToSave = [...lockedCards].map(card => {
 					return card.dataset.name_short;
 				});
-				console.log(idsToSave);
+				
 				window.localStorage.setItem("chosen_cards", JSON.stringify(idsToSave));
 
 				deck.animate(
