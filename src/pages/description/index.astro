@@ -7,25 +7,37 @@ const resMeanings = await fetch("https://tarotapi.dev/api/v1/cards");
 const tarotMeanings = await resMeanings.json();
 ---
 
-<MainLayout title="Ask the cards">
-    <section class="saved-cards">
-
-    </section>
+<MainLayout>
+    <h1>My interpertation</h1>
+    <section class="saved-cards"></section>
 </MainLayout>
 
 <style>
-    .saved-cards {
-        display: grid;
-        grid-template-areas:
-            "card1  text1"
-            "text2  card2"
-            "card3  text3";
-        grid-template-columns: 1fr 1fr;
-    }
+    @font-face {
+		font-family: 'Instrument Serif Regular';
+		src: url(./public/assets/fonts/InstrumentSerif-Regular.ttf);
+		font-weight: 100 800;
+		font-style: normal;
+	}
 
+	* {
+		font-family: 'Instrument Serif Regular', serif;
+  		color: inherit;
+	}
+
+    h1 {
+        text-align: center;
+        margin: 1em;
+        font-size: clamp(2em, 10vw, 4em);
+    }
 </style>
 
 <style is:global>
+    .saved-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    } 
+    
     .tarotcard-outer {
         background: none;
         border: none;
@@ -55,80 +67,148 @@ const tarotMeanings = await resMeanings.json();
         }
     }
 
-    .card-1, .card-2, .card-3,
-    .text-1, .text-2, .text-3 {
+    .section-1,
+    .section-2,
+    .section-3 {
+        padding: 3em;
+
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        column-gap: 2em;
+    }
+
+    .text-1,
+    .text-2,
+    .text-3 {
+        align-self: end;
+
+        & h2 {
+            font-size: max(1.5rem, 2vw);
+        }
+
+        & p:nth-of-type(1) {
+            margin: 1em 0 2em 0;
+            font-size: max(1rem, 1vw);
+            text-align: center;
+            background-color: white;
+            border-radius: 2px;
+            color: #6A3F73;
+            width: max-content;
+            padding: .2em .5em;
+        }
+
+        & p:nth-of-type(2) {
+            font-family: 'DM Sans', Arial, Helvetica, sans-serif;
+            font-weight: 250;
+            @media (width > 1024px) {
+                max-width: 70%;
+            }
+        }
+    }
+
+    .card-1,
+    .card-2,
+    .card-3 {
+        align-self: center;
         justify-self: center;
     }
 
-    .card-1 {
-        grid-area: card1;
+    @media (width > 1024px) {
+        .section-1,
+        .section-2,
+        .section-3 {
+            grid-template-columns: 35% 1fr;
+            column-gap: 4em;
+            margin-bottom: 3em;
+        }
+
+        .card-1,
+        .card-2,
+        .card-3 {
+            justify-self: end;
+        }
+
+        .text-1,
+        .text-2,
+        .text-3 {
+            align-self: center;
+        }
     }
 
-    .card-2 {
-        grid-area: card2;
+    @media (width < 500px) {
+        .section-1,
+        .section-2,
+        .section-3 {
+            grid-template-columns: 1fr;
+            gap: 1em;
+            padding: 1em;
+            margin-bottom: 3em;
+        }
+
+        .card-1,
+        .card-2,
+        .card-3 {
+            justify-self: start;
+        }
+
+        .text-1,
+        .text-2,
+        .text-3 {
+            align-self: start;
+        }
+
+        .tarotcard-outer {
+            width: 100%;
+            height: auto;
+        }
     }
 
-    .card-3 {
-        grid-area: card3;
-    }
-
-    .text-1 {
-        grid-area: text1;
-    }
-
-    .text-2 {
-        grid-area: text2;
-        text-align: end;
-    }
-
-    .text-3 {
-        grid-area: text3;
-    }
 </style>
 
 <script define:vars={{ tarotMeanings }}>
+    
     // @ts-nocheck
-
     const savedCards = JSON.parse(window.localStorage.getItem("chosen_cards"));
     const savedContainer = document.querySelector(".saved-cards");
 
-    savedCards.forEach((cardName, i) => {
-        const div = document.createElement("div");
+    savedCards.forEach((shortName, i) => {
 
-        div.dataset.index = i;
-        div.dataset.name_short = cardName;
+        const seperateSection = document.createElement("section");
+        seperateSection.className = `saved-card section-${i + 1}`;
 
-        div.className = `tarotcard-outer card-${i + 1}`;
+        const card = tarotMeanings.cards.filter(card => {
+            return card.name_short == shortName;
+        })
+        
+        if (!card) return;
+        
+        // images
+        const imgDiv = document.createElement("div");
+        imgDiv.className = `tarotcard-outer card-${i + 1}`;
 
         const img = document.createElement("img");
-        img.src = `/assets/images/${cardName}.jpeg`;
-        img.alt = `Tarot card: ${cardName}`;
+        img.src = `/assets/images/${shortName}.jpeg`;
+        img.alt = `Tarot card: ${shortName}`;
 
-        div.appendChild(img);
-        savedContainer.appendChild(div);
-    });
+        imgDiv .dataset.index = i;
+        imgDiv .dataset.name_short = shortName;
 
-    savedCards.forEach((shortName, i) => {
-        // filteren binnen in de hele tarot API naar de juiste kaarten. Als name_short in hele API overeenkomt met shortName uit savedCards dan returnt hij die.
-        const card = tarotMeanings.cards.filter(card => {
-            return card.name_short == shortName
-        })
-
-        // als er kaart is gevonden dan die tekst.
-        if (card) {
-            
-            const text = document.createElement("div");
-            text.className = `text-tarot text-${i + 1}`;
-            text.innerHTML = `
-                <h2>${card[0].name}</h2>
-                <p>${card[0].type}</p>
-                <p>${card[0].desc}</p>
-                <p><strong>Meaning up:</strong> ${card[0].meaning_up}</p>
-                <p><strong>Meaning reversed:</strong> ${card[0].meaning_rev}</p>
-            `;
+        imgDiv.appendChild(img);
         
-            savedContainer.appendChild(text);
-        }
+        // texts
+        const textDiv = document.createElement("div");
+        textDiv.className = `text-tarot text-${i + 1}`;
+        textDiv.innerHTML = `
+            <h2>${card[0].name}</h2>
+            <p>${card[0].type}</p>
+            <p>${card[0].desc}</p>
+        `;
+
+        seperateSection.appendChild(imgDiv);
+        seperateSection.appendChild(textDiv);
+
+        savedContainer.appendChild(seperateSection);
+
     });
 
 </script>

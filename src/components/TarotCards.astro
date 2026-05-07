@@ -14,14 +14,20 @@ const { meaningUp, meaningRev } = Astro.props;
             <div class="overview-card-back">
                 <h2>{nameCard}</h2>
                 <h3>{type}</h3>
-                <p><strong>Meaning upside: </strong>{meaningUp}</p>
-                <p><strong>Meaning reversed: </strong>{meaningRev}</p>
+                <p><strong>Meaning: </strong>{meaningUp}</p>
             </div>
         </div>
     </button>
 </section>
 
 <style>
+    @font-face {
+        font-family: 'DM Sans';
+		src: url(./public/assets/fonts/DMSans-VariableFont_opsz,wght.ttf);
+		font-weight: 100 800;
+		font-style: normal;
+    }
+
     *,
     *::before,
     *::after {
@@ -91,7 +97,6 @@ const { meaningUp, meaningRev } = Astro.props;
         }
 
         & .overview-card-back {
-            /* background: #6A3F73; */
             width: 100%;
             height: 100%;
             color: white;
@@ -123,10 +128,19 @@ const { meaningUp, meaningRev } = Astro.props;
             }
 
             & p {
-                font-size: max(.5rem, 1vw);
+                font-size: clamp(.7em, 1vw, .75em);
+
                 text-align: start;
                 align-self: end;
                 margin-top: .75em;
+
+                font-family: 'DM Sans';
+                font-weight: 200;
+
+                & strong {
+                    font-family: 'DM Sans';
+                    font-weight: 800;
+                }
             }
         }
     }
