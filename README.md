@@ -46,6 +46,10 @@ _Ik had mijn check-out met Rafi. Toen ik mijn concept vertelde kwam hij met sugg
 - Web animations API
 - evt. View transition API
 
+### REFLECTIE WEEK
+
+Ik zag vooral heel veel beren op de weg deze week. Het ging me allemaal wat snel. Ik heb zelden met API's gewerkt, nog nooit met Astro en nog nooit in een terminal. Veel mensen om mij heen wel al, waardoor ik enorm het gevoel kreeg dat ik op achterstand stond. De workshops en lessen gingen deze week erg snel voor mij... Dus ik heb wel stress voor de rest van het vak, maar ik ga het per week proberen te bekijken. Wel vond ik het heel leuk om na te denken over mijn concept en hier schetsen voor te maken.
+
 
 ## WEEK 2
 
@@ -111,6 +115,10 @@ Voortgangsgesprekken.
 
 Tijdens het voortgangsgesprek heb ik mijn proces tot nu toe laten zien. De drag and drop web API werkte en ik heb het werkend gemaakt voor 3 dropzones (op donderdagavond). In het gesprek heb ik aangegeven dat ik niet zo goed weet hoe ik mijn images met de juiste tarot card moet koppelen aan de gemaakte kaarten met javascript, maar Jad kan me hierbij helpen.
 Voor mijn tweede web API wil ik web animations API gebruiken. Hier ga ik me volgende week op focussen.
+
+### REFLECTIE WEEK
+
+Deze week is de drag en drop API gelukt, waar ik erg blij mee ben. Dit is het grootste gedeelte van mijn concept, dus ben blij dat ik hier stappen in heb kunnen zetten. Ik vind het soms lastig omdat ik heel veel ideeën in mijn hoofd heb en dan blokkeer ik een beetje omdat ik dan zo veel wil en niet weet waar ik moet of wil beginnen. Dit merk ik heel erg bij dit vak. Maar ik ga het van dag tot dag proberen te bekijken. 
 
 
 ## WEEK 3
@@ -213,3 +221,29 @@ Dat je met <script define:vars={{tarotMeanings}}> de tarot meanings in dit geval
 Wat ga ik morgen doen?
 
 Voortgangsgesprekken.
+
+
+
+### REFLECTIE WEEK
+
+Ik heb veel kleine dingen gedaan deze week om het beter te maken, zoals bijvoorbeeld code opschonen. Hierdoor heb ik het gevoel dat ik weinig stappen heb gezet, terwijl het eigenlijk heel goed is wat ik heb gedaan. Er zijn ook nog best wat dingen te doen. Ik moet nog de definitie pagina maken van de getrokken kaarten. Ik denk dat ik dit met localStorage wil gaan doen. Jad heeft aangegeven in het voortgangsgesprek dat ik eerst die definitie pagina het beste uit kan werken en als ik nog tijd heb het menu op de homepagina met de kaarten zoals mijn idee is. Hij zei dat dat best wat moeite kan kosten, maar het lijkt me heel leuk om te maken en echt iets toevoegen, dus wil dit toch graag nog gaan doen. 
+
+
+## Concept
+
+Mijn concept is om de Rider Waite tarotcards op een moderne en interactieve manier te vertalen van de fysieke wereld naar de digitale wereld. Hierbij heb ik geprobeerd om de ervaring zoals hij in de fysieke wereld is zo veel mogelijk na te bootsen. Gebruikers kunnen kaarten vanuit een spread zelf verplaatsen naar de "dropzones", wat voor een gevoel van betrokkenheid zorgt denk ik. Ook kunnen ze echt zelf kaarten kiezen uit de spread in plaats van dat het automatisch gegenereerd wordt, waardoor het ook intuïtief in gebruik is. Ik vond het heel belangrijk dat de reading ook echt van waarde zou kunnen zijn voor de gebruiker, dus het intuïtieve en interactieve heb ik bewust erg toegevoegd.
+
+Ik heb ervoor gekozen om een home-scherm te maken waarop een soort altaar te zien is. Dit geeft echt het mystieke gevoel mee en past in het concept om de fysieke ervaring om te zetten naar een digitale ervaring. Vanuit het home-scherm kan je navigeren naar een overview pagina, waar alle kaarten te zien zijn. Elke kaart kan je roteren en dan kan je op de achterkant de naam, arcana en korte betekenis lezen. Ook kun je vanuit het homescherm navigeren naar de reading. Hier zie je onderaan de spread met alle kaarten en in het midden van het scherm de dropzones. Je kunt vervolgens 3 kaarten verslepen naar de dropzones. Wanneer alle dropzones gevuld zijn, verdwijnt de spread met kaarten en komt er een button tevoorschijn met "get my interpretation". Deze brengt je vervolgens naar de uitgebreidere omschrijving van jouw getrokken kaarten. 
+
+## Technologiën en gebruikte API's
+
+Ik heb 1 content API en 3 web API's gebruikt. Voor de content API heb ik gebruik gemaakt van **Tarot API** (https://tarotapi.dev/api/v1/cards). In deze API staan met name de namen en definities van de kaarten. Helaas waren er geen images bij deze API te vinden. Daarom heb ik zelf alle images gedownload (via https://github.com/krates98/tarotcardapi) en deze vervolgens gekoppeld aan de juiste kaarten. De eerste web API die ik heb gebruikt is **Pointer Events API**. Hiermee heb ik het verslepen van de kaarten naar de dropzones gemaakt. De tweede web API is **web animations API**. Deze heb ik o.a. ingezet voor het roteren van de kaarten. De derde web API die ik gebruikt heb is **localStorage API**. Deze heb ik gebruikt voor het opslaan van de 3 getrokken kaarten, waarna je de definitie/interpertatie op een volgende pagina terug kunt zien. 
+
+
+## REFLECTIE
+
+Ik vond dit een heel interessant vak, maar toch ook wel lastig. Ik heb zelf alleen in sprint 0 met een API gewerkt, maar daarvoor nog nooit, dus API's is echt iets nieuws voor mij. Ook heb ik tot deze minor nog nooit in een terminal gewerkt of eigenlijk zelfs nog bijna nooit gezien. Dus toen wij de eerste week opstartten had ik hier heel veel moeite mee en ging het me allemaal erg snel. Voor mijn gevoel werd het een beetje verteld alsof het logisch of algemene kennis was, maar dat was het voor mij gewoon echt niet. Dus daardoor was ik wel een beetje angstig voor de rest van het vak en twijfelachtig. Maar uiteindelijk viel wat je met de terminal moest doen hartstikke mee. Iets anders wat compleet nieuw voor mij was, was Astro. Het werken met componenten en layouts vond ik lastig, omdat ik het hierdoor lastig vond om te weten wat ik nou waar moest neerzetten. De gegeven workshops hierover vond ik goed te volgen, maar als je het vervolgens zelf moet doen voor jouw (ingewikkeldere) ideeën is dat toch gewoon heel anders. Ook was het hele vak vooral gericht op Javascript, waar ik ook niet super veel ervaring mee heb tot nu toe... Kortom, heel veel nieuwe dingen en uitdagingen, waardoor ik soms meer tijd kwijt was als het ware aan die dingen ontdekken en uitvinden hoe het werkt, dan aan coderen zelf. 
+
+Het werken met Javascript vond ik, nadat ik over de eerste leer curve heen was, wel heel leuk. Ik merkte dat ik soms dingen wel echt even een aantal keer moest doen om het helemaal onder de knie te krijgen. Ik had bijvoorbeeld verschillende codepens gemaakt waar ik verschillende dingen los werkend maakte. Dus bijv een codepen voor roteren van kaarten, een codepen voor het verslepen van kaarten etc. Toen ik deze samen moest voegen waren er best wat problemen waardoor het niet werkte. Het lastige aan Javascript vind ik dat het lastig te achterhalen is waar het nou precies mis gaat. Met veel console.logs en hulp van de docent kwam ik er uiteindelijk uit gelukkig. 
+
+Ik ben best heel tevreden over mijn eindproduct. Ik denk dat ik veel heb gedaan in korte tijd, ondanks dat alles nieuw voor me was. Ik heb grotendeels uit kunnen werken wat ik in gedachte had. Er is nog wel 1 ding wat het helemaal af had gemaakt voor mij en dat is dat gebruikers konden kiezen tussen verschillende type spreads en ze dan naar aanleiding van de spread een passende definitie kregen. Dus niet alleen van de kaart, maar echt volledig passend binnen de context. Dus dat is iets voor de toekomst misschien nog!
