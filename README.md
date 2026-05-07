@@ -265,5 +265,6 @@ Ik ben best heel tevreden over mijn eindproduct. Ik denk dat ik veel heb gedaan 
 - https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
 - https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 - https://github.com/krates98/tarotcardapi
+- https://codepen.io/andreykrokhin/pen/mGEqja?editors=0110
 
 
