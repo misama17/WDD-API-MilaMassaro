@@ -19,7 +19,7 @@ const tarotMeanings = await resMeanings.json();
 		<main>
 			<MainLayout>
 				<section class="main-container">
-					<h1>Drag and drop the cards to the dropzones</h1>
+					<h1>Drag and drop the cards to <em>the dropzones</em></h1>
 
 					<div class="dropzone-container">
 						<div class="dropzone"></div>
@@ -41,7 +41,7 @@ const tarotMeanings = await resMeanings.json();
 
 				* {
 					font-family: "Instrument Serif Regular", serif;
-					color: white;
+					color: #efe7d5;
 				}
 
 				body {
@@ -59,14 +59,16 @@ const tarotMeanings = await resMeanings.json();
 
 					& h1 {
 						margin: 1em 1em 0 1em;
-						font-size: clamp(1.5em, 10vw, 3em);
+						font-size: clamp(2em, 10vw, 4em);
+						text-align: center;
 					}
 				}
 
 				.dropzone-container {
 					display: flex;
 					gap: 2em;
-					margin-top: 10em;
+					margin: 4em;
+					align-items: center;
 				}
 
 				.dropzone {
@@ -219,11 +221,18 @@ const tarotMeanings = await resMeanings.json();
 				}
 
 				.description-link {
+					font-size: 1.5em;
 					padding: 1em 2em;
-					margin-top: 10em;
+					margin-top: 2em;
 					text-decoration: none;
 					border-radius: 2em;
 					background-color: var(--color-hotzone);
+
+					transition: transform 0.5s ease;
+
+					&:hover {
+						transform: scale(1.1);
+					}
 				}
 			</style>
 
@@ -237,11 +246,17 @@ const tarotMeanings = await resMeanings.json();
 				// ----------------------------------
 				const dropzones = document.querySelectorAll(".dropzone");
 				const deck = document.querySelector(".cards-container");
-				const cards = tarotMeanings.cards.map((card) => ({
-					front: "",
-					back: `/assets/images/${card.name_short}.jpeg`,
-					name_short: card.name_short,
-				}));
+				const cards = tarotMeanings.cards
+					.map((card) => ({
+						front: "",
+						back: `/assets/images/${card.name_short}.jpeg`,
+						name_short: card.name_short,
+					}))
+
+					// ChatGPT: shufflen van kaarten
+					.sort(() => Math.random() - 0.5)
+
+					;
 
 				// ----------------------------------
 				// -------- MARK: VARIABELEN --------
@@ -552,7 +567,6 @@ const tarotMeanings = await resMeanings.json();
 						},
 					);
 
-					// tarotcardInner.dataset.tarotcardFlipped = !tarotcardFlipped;
 					const newTarotcardState = !tarotcardFlipped;
 
 					tarotcardInner.dataset.tarotcardFlipped = newTarotcardState;

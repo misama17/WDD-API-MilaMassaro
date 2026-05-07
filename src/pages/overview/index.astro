@@ -9,7 +9,7 @@ const tarotMeanings = await resMeanings.json()
 
 
 <MainLayout>
-    <h1>Overview of all the cards and their meaning</h1>
+    <h1>Overview of <em>all the cards</em> and their meaning</h1>
 	<section>
         {tarotMeanings.cards.map( card => {
             return (
@@ -29,7 +29,7 @@ const tarotMeanings = await resMeanings.json()
 
 	* {
 		font-family: 'Instrument Serif Regular', serif;
-  		color: inherit;
+  		color: #efe7d5;
 	}
 
     h1 {
