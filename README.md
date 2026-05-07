@@ -2,6 +2,13 @@
 
 Link naar mijn Notion: https://www.notion.so/Minor-Webdesign-Development-2fd4a28d1c2c8004a247e9f0794a6be0?source=copy_link 
 
+## GEBRUIKTE API'S
+
+- Tarot API
+- Web animations API
+- Pointer Events API
+- LocalStorage API
+
 
 ## WEEK 1
 
@@ -247,3 +254,16 @@ Ik vond dit een heel interessant vak, maar toch ook wel lastig. Ik heb zelf alle
 Het werken met Javascript vond ik, nadat ik over de eerste leer curve heen was, wel heel leuk. Ik merkte dat ik soms dingen wel echt even een aantal keer moest doen om het helemaal onder de knie te krijgen. Ik had bijvoorbeeld verschillende codepens gemaakt waar ik verschillende dingen los werkend maakte. Dus bijv een codepen voor roteren van kaarten, een codepen voor het verslepen van kaarten etc. Toen ik deze samen moest voegen waren er best wat problemen waardoor het niet werkte. Het lastige aan Javascript vind ik dat het lastig te achterhalen is waar het nou precies mis gaat. Met veel console.logs en hulp van de docent kwam ik er uiteindelijk uit gelukkig. 
 
 Ik ben best heel tevreden over mijn eindproduct. Ik denk dat ik veel heb gedaan in korte tijd, ondanks dat alles nieuw voor me was. Ik heb grotendeels uit kunnen werken wat ik in gedachte had. Er is nog wel 1 ding wat het helemaal af had gemaakt voor mij en dat is dat gebruikers konden kiezen tussen verschillende type spreads en ze dan naar aanleiding van de spread een passende definitie kregen. Dus niet alleen van de kaart, maar echt volledig passend binnen de context. Dus dat is iets voor de toekomst misschien nog!
+
+## BRONNENLIJST
+- https://tarotapi.dev/api/v1/cards
+- https://codepen.io/Sidstumple/pen/ByjXVLw
+- https://codepen.io/tkdev-hub/pen/RNGBZMo
+- https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+- https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/pointerId
+- https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture
+- https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
+- https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+- https://github.com/krates98/tarotcardapi
+
+
